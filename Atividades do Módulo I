@@ -1,0 +1,108 @@
+# ==============================
+# LISTA 1 – TIPOS DE DADOS
+# ==============================
+
+# 1. Inteiro
+idade = 20
+print("Idade:", idade)
+
+# 2. Float
+altura = 1.75
+print("Altura:", altura)
+
+# 3. String
+nome = "Bryan Windson"
+print(f"Olá, meu nome é {nome}")
+
+# 4. Boolean
+estudando_python = True
+print("Estudando Python:", estudando_python)
+
+# 5. Lista
+frutas = ["Maçã", "Banana", "Laranja"]
+print("Segunda fruta:", frutas[1])
+
+# 6. Tupla
+cores = ("Vermelho", "Azul", "Verde", "Amarelo")
+print("Primeira cor:", cores[0])
+
+# 7. Dicionário
+aluno = {
+    "nome": "Carlos",
+    "idade": 18,
+    "nota": 8.5
+}
+print("Nota do aluno:", aluno["nota"])
+
+# 8. Lista com tipos misturados
+dados = [10, 3.14, "Python", True]
+print("Dados:", dados)
+
+
+# ==============================
+# LISTA 2 – ESTRUTURAS CONDICIONAIS
+# ==============================
+
+# 1. Número positivo
+num = float(input("\nDigite um número: "))
+print("É positivo" if num > 0 else "Não é positivo")
+
+# 2. Maior ou menor de idade
+idade = int(input("\nDigite sua idade: "))
+print("Maior de idade" if idade >= 18 else "Menor de idade")
+
+# 3. Nota
+nota = float(input("\nDigite a nota (0 a 10): "))
+if nota >= 7:
+    print("Aprovado")
+elif nota >= 5:
+    print("Recuperação")
+else:
+    print("Reprovado")
+
+# 4. Positivo, par e múltiplo de 5
+num = int(input("\nDigite um número: "))
+print("Positivo" if num > 0 else "Não positivo")
+print("Par" if num % 2 == 0 else "Ímpar")
+print("Múltiplo de 5" if num % 5 == 0 else "Não múltiplo de 5")
+
+# 5. Semáforo
+cor = input("\nDigite a cor do semáforo: ").lower()
+if cor == "verde":
+    print("Pode seguir")
+elif cor == "amarelo":
+    print("Atenção")
+elif cor == "vermelho":
+    print("Pare")
+else:
+    print("Cor inválida")
+
+# 6. Pode dirigir
+idade = int(input("\nDigite sua idade: "))
+if idade >= 18:
+    habilitacao = input("Tem habilitação? (sim/não): ").lower()
+    if habilitacao == "sim":
+        print("Pode dirigir")
+    else:
+        print("Não pode dirigir")
+else:
+    print("Menor de idade, não pode dirigir")
+
+# 7. Par ou ímpar em uma linha
+num = int(input("\nDigite um número: "))
+print("Par" if num % 2 == 0 else "Ímpar")
+
+# 8. Entre 10 e 20
+num = int(input("\nDigite um número: "))
+print("Está entre 10 e 20" if 10 <= num <= 20 else "Não está entre 10 e 20")
+
+# 9. Maior de três números
+a = float(input("\nDigite o primeiro número: "))
+b = float(input("Digite o segundo número: "))
+c = float(input("Digite o terceiro número: "))
+print("Maior número:", max(a, b, c))
+
+# 10. Usuário e senha
+usuario = input("\nUsuário: ")
+senha = input("Senha: ")
+print("Acesso permitido" if usuario == "admin" and senha == "1234" else "Acesso negado")
