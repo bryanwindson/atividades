@@ -1,0 +1,131 @@
+import mysql.connector
+
+class Conexao:
+    @staticmethod
+    def conectar():
+        return mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="root",
+            database="teste"
+        )
+from conexao import Conexao
+
+class CRUDProduto:
+
+    def inserir(self, nome, preco, id_categoria):
+        conexao = Conexao.conectar()
+        cursor = conexao.cursor()
+        sql = """
+            INSERT INTO produto (nome, preco, id_categoria)
+            VALUES (%s, %s, %s)
+        """
+        cursor.execute(sql, (nome, preco, id_categoria))
+        conexao.commit()
+        cursor.close()
+        conexao.close()
+
+    def listar(self):
+        conexao = Conexao.conectar()
+        cursor = conexao.cursor()
+        cursor.execute("SELECT * FROM produto")
+        dados = cursor.fetchall()
+        cursor.close()
+        conexao.close()
+        return dados
+
+    def buscar_por_id(self, id_produto):
+        conexao = Conexao.conectar()
+        cursor = conexao.cursor()
+        cursor.execute(
+            "SELECT * FROM produto WHERE id_produto = %s",
+            (id_produto,)
+        )
+        produto = cursor.fetchone()
+        cursor.close()
+        conexao.close()
+        return produto
+
+    def atualizar(self, id_produto, nome, preco, id_categoria):
+        conexao = Conexao.conectar()
+        cursor = conexao.cursor()
+        sql = """
+            UPDATE produto
+            SET nome = %s, preco = %s, id_categoria = %s
+            WHERE id_produto = %s
+        """
+        cursor.execute(sql, (nome, preco, id_categoria, id_produto))
+        conexao.commit()
+        cursor.close()
+        conexao.close()
+
+    def excluir(self, id_produto):
+        conexao = Conexao.conectar()
+        cursor = conexao.cursor()
+        cursor.execute(
+            "DELETE FROM produto WHERE id_produto = %s",
+            (id_produto,)
+        )
+        conexao.commit()
+        cursor.close()
+        conexao.close()
+from crudproduto import CRUDProduto
+
+class SistemaProduto:
+    def __init__(self):
+        self.crud = CRUDProduto()
+
+    def executar(self):
+        while True:
+            print("\n--- MENU ---")
+            print("1 - Inserir Produto")
+            print("2 - Listar Produtos")
+            print("3 - Buscar Produto")
+            print("4 - Atualizar Produto")
+            print("5 - Excluir Produto")
+            print("0 - Sair")
+
+            opcao = input("Opção: ")
+
+            if opcao == "1":
+                nome = input("Nome: ")
+                preco = float(input("Preço: "))
+                id_categoria = int(input("ID Categoria: "))
+                self.crud.inserir(nome, preco, id_categoria)
+                print("Produto inserido com sucesso.")
+
+            elif opcao == "2":
+                produtos = self.crud.listar()
+                for p in produtos:
+                    print(p)
+
+            elif opcao == "3":
+                id_produto = int(input("ID do Produto: "))
+                produto = self.crud.buscar_por_id(id_produto)
+                if produto:
+                    print(produto)
+                else:
+                    print("Produto não encontrado.")
+
+            elif opcao == "4":
+                id_produto = int(input("ID do Produto: "))
+                nome = input("Novo nome: ")
+                preco = float(input("Novo preço: "))
+                id_categoria = int(input("Nova categoria: "))
+                self.crud.atualizar(id_produto, nome, preco, id_categoria)
+                print("Produto atualizado com sucesso.")
+
+            elif opcao == "5":
+                id_produto = int(input("ID do Produto: "))
+                self.crud.excluir(id_produto)
+                print("Produto excluído com sucesso.")
+
+            elif opcao == "0":
+                print("Encerrando o sistema.")
+                break
+
+            else:
+                print("Opção inválida.")
+
+if __name__ == "__main__":
+    SistemaProduto().executar()
